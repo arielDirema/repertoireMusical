@@ -1,12 +1,16 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,11 +27,15 @@ public class Categorie implements Serializable{
     @Column(name = "description")
     private String description;
 
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
+    private List<Titre> titres;
+
     //Constructors
     public Categorie(){}
     public Categorie(String libelle, String description){
         this.libelle = libelle;
         this.description = description;
+        titres = new ArrayList<>();
     }
 
     //Getters & Setters
@@ -40,6 +48,9 @@ public class Categorie implements Serializable{
     public String getDescription(){
         return description;
     }
+    public List<Titre> getTitres() {
+        return titres;
+    }
 
     public void setLibelle(String libelle){
         this.libelle = libelle;
@@ -48,6 +59,9 @@ public class Categorie implements Serializable{
         this.description = description;
     }
 
+    public void addTitre(Titre titre){
+        titres.add(titre);
+    }
 
     @Override
     public int hashCode() {

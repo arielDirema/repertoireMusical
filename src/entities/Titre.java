@@ -1,6 +1,8 @@
 package entities;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -8,6 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,12 +34,26 @@ public class Titre {
     @Convert(converter = DurationAttributeConverter.class)
     private Duration duree;
 
+    @ManyToOne
+    @JoinColumn(name = "artiste_id")
+    private Auteur artiste;
+
+    @ManyToMany
+    @JoinTable(
+        name = "titre_categorie",
+        joinColumns = @JoinColumn(name = "titre_id"),
+        inverseJoinColumns = @JoinColumn(name = "categorie_id")
+    )
+    private List<Categorie> categories;
+
     //Constructors
     public Titre(){}
     public Titre(String libelle, String description, Duration duree){
         this.libelle = libelle;
         this.description = description;
         this.duree = duree;
+        artiste = new Auteur();
+        categories = new ArrayList<>();
     }
 
     //Getters and setters
@@ -49,7 +69,13 @@ public class Titre {
     public String getDuree(){
         return duree.toString();
     }
-
+    public Auteur getArtiste() {
+        return artiste;
+    }
+    public List<Categorie> getCategories() {
+        return categories;
+    }
+    
     public void setLibelle(String libelle){
         this.libelle = libelle;
     }
@@ -58,6 +84,13 @@ public class Titre {
     }
     public void setDuree(Duration duree){
         this.duree = duree;
+    }
+    public void setArtiste(Auteur artiste) {
+        this.artiste = artiste;
+    }
+
+    public void addCategorie(Categorie category){
+        categories.add(category);
     }
 
     @Override
@@ -90,6 +123,4 @@ public class Titre {
         return "Titre [id=" + id + ", libelle=" + libelle + ", description=" + description + ", duree=" + duree.toString()
                 + "]";
     }
-
-    
 }

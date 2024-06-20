@@ -1,12 +1,17 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,10 +25,14 @@ public class Auteur implements Serializable{
     @Column(name = "nom_auteur", length = 30, nullable = false)
     private String nom;
 
+    @OneToMany(mappedBy = "auteur", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Titre> titres;
+
     //Constructors
     public Auteur(){}
     public Auteur(String nom){
         this.nom = nom;
+        titres = new ArrayList<>();
     }
 
     //Getters & Setters
@@ -33,11 +42,17 @@ public class Auteur implements Serializable{
     public String getNom(){
         return nom;
     }
+    public List<Titre> getTitres() {
+        return titres;
+    }
 
     public void setNom(String nom){
         this.nom = nom;
     }
 
+    public void addTitre(Titre titre){
+        titres.add(titre);
+    }
 
     @Override
     public int hashCode() {
@@ -68,5 +83,4 @@ public class Auteur implements Serializable{
     public String toString() {
         return "Auteur [id=" + id + ", nom=" + nom + "]";
     }
-
 }
