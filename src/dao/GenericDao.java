@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import entities.BaseEntity;
 import util.JpaTransactionUtil;
 
 /**
@@ -10,7 +11,7 @@ import util.JpaTransactionUtil;
  * @param <T>
  * @param <Key>
  */
-public class GenericDao<T , Key extends Object> {
+public class GenericDao<T extends BaseEntity , Key extends Object> {
 
     protected Class<T> classeEntite;
 

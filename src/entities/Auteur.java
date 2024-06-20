@@ -1,6 +1,5 @@
 package entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "auteur")
-public class Auteur implements Serializable{
+public class Auteur extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_auteur")

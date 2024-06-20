@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dao.GenericDao;
+import entities.BaseEntity;
 
 /**
  *
@@ -10,7 +11,7 @@ import dao.GenericDao;
  * @param <T>
  * @param <Key>
  */
-public class GenericSercive<T, Key extends Object> {
+public class GenericSercive<T extends BaseEntity, Key extends Object> {
 
     protected  GenericDao<T, Key> dao;
 

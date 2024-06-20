@@ -1,6 +1,5 @@
 package entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categorie")
-public class Categorie implements Serializable{
+public class Categorie extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categorie")
